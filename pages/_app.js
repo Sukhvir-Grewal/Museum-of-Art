@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/globals.css'
 
-//These hooks are for the as4
+// These hooks are for the as4
 import { SWRConfig } from 'swr'
 import Layout from '@/components/Layout'
 
@@ -28,13 +28,11 @@ export default function App({ Component, pageProps }) {
       }}>
 
         <Layout>
+          {/* Render the actual page component here */}
           <Component {...pageProps} />
         </Layout>
 
       </SWRConfig>
-
-      <Component {...pageProps} />
-
     </>
   )
 }

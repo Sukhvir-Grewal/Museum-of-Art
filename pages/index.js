@@ -1,14 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
+import useSWR from 'swr'
 
+const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/123`
 export default function Home() {
+  const { data, error } = useSWR(URL)
+  if (error) return <div>Failed to load data.</div>;
+  if (!data) return <div>Loading...</div>;
   return (
     <>
-      <p>Home</p>
+      <p>hello world</p>
     </>
   )
 }
