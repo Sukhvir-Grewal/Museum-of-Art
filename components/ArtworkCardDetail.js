@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Link from 'next/link'
 import Error from 'next/error'
 
-export default function ArtworkCard({ objectID }) {
+export default function ArtworkCardDetail({ objectID }) {
     const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
     const [data, error] = useSWR(URL)
 
