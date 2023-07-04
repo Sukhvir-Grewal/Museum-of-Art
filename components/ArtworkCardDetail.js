@@ -9,9 +9,6 @@ export default function ArtworkCard({ objectID }) {
     const [data, error] = useSWR(URL)
 
     if (error) {
-        // if an "error" occurs when making the SWR request, 
-        // render the "Error" component from "next/error", 
-        // ie: <Error statusCode={404} />
         return <Error statusCode={404} />
     }
     if (data) {
@@ -19,10 +16,9 @@ export default function ArtworkCard({ objectID }) {
         var id = `/artwork/${data.objectID}`
         return (
             <Card>
+                {/* Renders the image only if it's avaiable */}
                 {
-                        data.primaryImageSmall ?
-                         <Card.Img src={data.primaryImage} />:
-                         <Card.Img src={'https://via.placeholder.com/375x375.png?text=[+Not+Available+]'} />
+                    data.primaryImageSmall && <Card.Img src={data.primaryImage} />
                 }
                 <Card.Body>
                     {
@@ -45,11 +41,27 @@ export default function ArtworkCard({ objectID }) {
                             <Card.Text><b>Medium:&nbsp;</b>{data.medium}</Card.Text> :
                             <Card.Text><b>Medium:&nbsp;</b><p>N/A</p></Card.Text>
                     }
-                    <Link href={id} passHref><Button>data.objectID</Button></Link>
+                    <br />
+                    <br />
+                    {
+                        data.artistDisplayName ?
+                            <Card.Text><b>Artist:&nbsp;</b>{data.artistDisplayName} ( <a href={data.artistWikidata_URL} target="_blank" rel="noreferrer">wiki</a> ) </Card.Text> :
+                            <Card.Text><b>Artist:&nbsp;</b>N/A</Card.Text>
+                    }
+                    {
+                        data.creditLine ?
+                            <Card.Text><b>Credit Line:&nbsp;</b>{data.creditLine}</Card.Text> :
+                            <Card.Text><b>Credit Line:&nbsp;</b>N/A</Card.Text>
+                    }
+                    {
+                        data.dimensions ?
+                            <Card.Text><b>Dimensions:&nbsp;</b>{data.creditLine}</Card.Text> :
+                            <Card.Text><b>Dimensions:&nbsp;</b>N/A</Card.Text>
+                    }
                 </Card.Body>
             </Card>
         )
-    }else{
+    } else {
         return null
     }
 }
