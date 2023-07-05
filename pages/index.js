@@ -1,14 +1,16 @@
-
-import useSWR from 'swr'
-
-const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/123`
+import { Card, CardGroup } from "react-bootstrap";
 export default function Home() {
-  const { data, error } = useSWR(URL)
-  if (error) return <div>Failed to load data.</div>;
-  if (!data) return <div>Loading...</div>;
   return (
-    <>
-      <p>hello world</p>
-    </>
+    <CardGroup>
+      <Card style={{ width: '30rem' }}>
+        <Card.Img src="/Beeju.png" />
+      </Card>
+      <Card>
+        <Card.Body>
+          <Card.Title className="text-center">Who Are They</Card.Title>
+          <Card.Text>Three Beejus one Not Beeju</Card.Text>
+        </Card.Body>
+      </Card>
+    </CardGroup>
   )
 }
