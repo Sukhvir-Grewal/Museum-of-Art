@@ -78,6 +78,7 @@ export default function Main() {
                         <Card>
                             <Card.Body>
                                 <Card.Title><h4>Nothing Here</h4></Card.Title>
+                                <Card.Text>Try searching for something else</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>

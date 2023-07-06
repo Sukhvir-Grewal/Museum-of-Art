@@ -24,7 +24,7 @@ function MainNav() {
         <>
             <Navbar expand="lg" className="fixed-top navbar-dark bg-dark" >
                 <Container>
-                    <Navbar.Brand href="#home">Sukhvir</Navbar.Brand>
+                    <Navbar.Brand href="">Sukhvir</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
