@@ -1,9 +1,13 @@
+//This componet literally took me two day to figure out the problem
+//I was about to give up!
+//And the problem was that i was using "splice" insltead of "slice"
+//Its always a spelling mistake'😂
 import { useRouter } from "next/router"
 import useSWR from 'swr'
 import { useEffect, useState } from "react"
 import { Card, Col, Pagination, Row } from "react-bootstrap"
 import ArtworkCard from "@/components/ArtworkCard"
-import { Error } from "next/error";
+import Error from "next/error";
 
 const PER_PAGE = 12
 
@@ -24,14 +28,15 @@ export default function Main() {
     let finalQuary = router.asPath.split('?')[1]
     const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuary}`)
 
-    let [artworkList, setArtworkList] = useState([])
+    let [artworkList, setArtworkList] = useState(null)
     let [page, setPage] = useState(1)
 
     useEffect(() => {
+        let result = []
         if (data) {
-            let result = []
             for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
-                const chunk = data?.objectIDs.splice(i, i + PER_PAGE)
+
+                const chunk = data?.objectIDs.slice(i, i + PER_PAGE)
                 result.push(chunk)
             }
             setArtworkList(result)
@@ -48,40 +53,36 @@ export default function Main() {
 
     return (
         <>
-            {artworkList != null && (
-                <Row className="gy-4">
-                    {
-                        artworkList.length > 0 ? (
-                            artworkList[page - 1].map((currentObjectID) => (
-                                <Col lg={3} key={currentObjectID}>
-                                    <ArtworkCard objectID={currentObjectID} />
-                                </Col>
-                            ))
-                        ) : (
-                            <Col>
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title><h4>Nothing Here</h4></Card.Title>
-                                    </Card.Body>
-                                </Card>
+            {artworkList && artworkList.length > 0 ? (
+                <>
+                    <Row className="gy-4">
+                        {artworkList[page - 1].map((currentObjectID) => (
+                            <Col lg={3} key={currentObjectID}>
+                                <ArtworkCard objectID={currentObjectID} />
                             </Col>
-                        )
-                    }
-                </Row>
-            )}
-            {
-                artworkList && artworkList.length > 0 && (
+                        ))}
+                    </Row>
                     <Row>
                         <Col>
                             <Pagination>
                                 <Pagination.Prev onClick={() => previousPage(page, setPage)} />
-                                <Pagination.Item active />{page}
+                                <Pagination.Item active>{page}</Pagination.Item>
                                 <Pagination.Next onClick={() => next(page, setPage, artworkList)} />
                             </Pagination>
                         </Col>
                     </Row>
-                )
-            }
+                </>
+            ) : (
+                <Row>
+                    <Col>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title><h4>Nothing Here</h4></Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            )}
         </>
-    )
-}   
+    );
+}
