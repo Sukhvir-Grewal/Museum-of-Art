@@ -9,6 +9,8 @@ import { Card, Col, Pagination, Row } from "react-bootstrap"
 import ArtworkCard from "@/components/ArtworkCard"
 import Error from "next/error";
 
+import validObjectIDList from "@/public/data/validObjectIDList.json"
+
 const PER_PAGE = 12
 
 function previousPage(page, setPage) {
@@ -32,12 +34,13 @@ export default function Main() {
     let [page, setPage] = useState(1)
 
     useEffect(() => {
-        let result = []
-        if (data) {
-            for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
-
-                const chunk = data?.objectIDs.slice(i, i + PER_PAGE)
-                result.push(chunk)
+            let result = []
+            
+            if (data) {
+                let filteredResults = validObjectIDList.objectIDs.filter(x => data.objectIDs?.includes(x));
+                for (let i = 0; i < filteredResults.length; i += PER_PAGE) {
+                    const chunk = filteredResults.slice(i, i + PER_PAGE);
+                    result.push(chunk);
             }
             setArtworkList(result)
         }

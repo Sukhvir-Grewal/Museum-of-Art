@@ -23,7 +23,7 @@ function MainNav() {
     return (
         <>
             <Navbar expand="lg" className="fixed-top navbar-dark bg-dark" >
-                <Container>
+                <Container fluid>
                     <Navbar.Brand href="">Sukhvir</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -31,7 +31,6 @@ function MainNav() {
                             <Link href='/' passHref legacyBehavior><Nav.Link>Home</Nav.Link></Link>
                             <Link href='/search' passHref legacyBehavior><Nav.Link>Advanced Search</Nav.Link></Link>
                         </Nav>
-                    </Navbar.Collapse>
                     <Form className="d-flex" onSubmit={handleSubmit}>
                         <Form.Control
                             type="search"
@@ -43,6 +42,7 @@ function MainNav() {
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
             <br />
