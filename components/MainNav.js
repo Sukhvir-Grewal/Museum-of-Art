@@ -20,6 +20,7 @@ function MainNav() {
         e.preventDefault()
         SetSearchHistory((history)=>[...history, inputValue])
         Router.push('/artwork?title=true&q=' + inputValue)
+        setInputValue('')
         setIsExpanded(false)
     }
 
@@ -41,8 +42,8 @@ function MainNav() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleIsExpended}/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Link href='/' passHref legacyBehavior ><Nav.Link onClick={handleNavLink}>Home</Nav.Link></Link>
-                            <Link href='/search' passHref legacyBehavior ><Nav.Link onClick={handleNavLink}>Advanced Search</Nav.Link></Link>
+                            <Link href='/' passHref legacyBehavior ><Nav.Link active={Router.pathname == '/'} onClick={handleNavLink}>Home</Nav.Link></Link>
+                            <Link href='/search' passHref legacyBehavior ><Nav.Link active={Router.pathname == '/search'} onClick={handleNavLink}>Advanced Search</Nav.Link></Link>
                         </Nav>
                         &nbsp;
                         <Form className="d-flex" onSubmit={handleSubmit}>
@@ -54,13 +55,13 @@ function MainNav() {
                                 value={inputValue}
                                 onChange={handleChangeValue}
                             />
-                            <Button variant="outline-success">Search</Button>
+                            <Button variant="success">Search</Button>
                         </Form>
                         &nbsp;
                         <Nav>
                             <NavDropdown title="User Name" id="basic-nav-dropdown">
-                                <Link href='/favourites' passHref legacyBehavior><NavDropdown.Item onClick={handleNavLink}>Favorites</NavDropdown.Item></Link>
-                                <Link href='/history' passHref legacyBehavior><NavDropdown.Item onClick={handleNavLink}>History</NavDropdown.Item></Link>
+                                <Link href='/favourites' passHref legacyBehavior><NavDropdown.Item active={Router.pathname == '/favourites'} onClick={handleNavLink}>Favorites</NavDropdown.Item></Link>
+                                <Link href='/history' passHref legacyBehavior><NavDropdown.Item active={Router.pathname == '/history'} onClick={handleNavLink}>History</NavDropdown.Item></Link>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
