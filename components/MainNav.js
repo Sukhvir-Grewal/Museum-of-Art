@@ -10,38 +10,48 @@ import { useRouter } from 'next/router';
 function MainNav() {
     const Router = useRouter()
     const [inputValue, setInputValue] = useState('')
+    const [isExpanded, setIsExpanded] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
         Router.push('/artwork?title=true&q=' + inputValue)
+        setIsExpanded(false)
     }
 
     function handleChangeValue(e) {
         setInputValue(e.target.value)
     }
 
+    function toggleIsExpended(){
+        setIsExpanded(!isExpanded)
+    } 
+    function handleNavLink(){
+        setIsExpanded(false)
+    } 
     return (
         <>
-            <Navbar expand="lg" className="fixed-top navbar-dark bg-dark" >
+            <Navbar expand="lg" className="fixed-top navbar-dark bg-dark" expanded={isExpanded}>
                 <Container fluid>
                     <Navbar.Brand href="">Sukhvir</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleIsExpended}/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Link href='/' passHref legacyBehavior><Nav.Link>Home</Nav.Link></Link>
-                            <Link href='/search' passHref legacyBehavior><Nav.Link>Advanced Search</Nav.Link></Link>
+                            <Link href='/' passHref legacyBehavior ><Nav.Link onClick={handleNavLink}>Home</Nav.Link></Link>
+                            <Link href='/search' passHref legacyBehavior ><Nav.Link onClick={handleNavLink}>Advanced Search</Nav.Link></Link>
                         </Nav>
-                    <Form className="d-flex" onSubmit={handleSubmit}>
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                            value={inputValue}
-                            onChange={handleChangeValue}
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
+                        &nbsp;
+                        <Form className="d-flex" onSubmit={handleSubmit}>
+                            <Form.Control
+                                type="search"
+                                placeholder="Search"
+                                className="me-2"
+                                aria-label="Search"
+                                value={inputValue}
+                                onChange={handleChangeValue}
+                            />
+                            <Button variant="outline-success">Search</Button>
+                        </Form>
+                        &nbsp;
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
