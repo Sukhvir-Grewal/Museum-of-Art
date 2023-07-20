@@ -1,5 +1,4 @@
 import { Row, Col, Card, Pagination } from "react-bootstrap";
-import Link from "next/link";
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
 import ArtworkCard from "@/components/ArtworkCard";

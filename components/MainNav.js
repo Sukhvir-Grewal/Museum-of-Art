@@ -7,14 +7,18 @@ import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/router';
+import { searchHistoryAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 function MainNav() {
     const Router = useRouter()
     const [inputValue, setInputValue] = useState('')
     const [isExpanded, setIsExpanded] = useState(false)
+    const [searchHistory, SetSearchHistory] = useAtom(searchHistoryAtom)
 
     function handleSubmit(e) {
         e.preventDefault()
+        SetSearchHistory((history)=>[...history, inputValue])
         Router.push('/artwork?title=true&q=' + inputValue)
         setIsExpanded(false)
     }
