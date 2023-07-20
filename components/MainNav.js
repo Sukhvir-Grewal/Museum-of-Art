@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/router';
 
@@ -52,6 +53,12 @@ function MainNav() {
                             <Button variant="outline-success">Search</Button>
                         </Form>
                         &nbsp;
+                        <Nav>
+                            <NavDropdown title="User Name" id="basic-nav-dropdown">
+                                <Link href='/favourites' passHref legacyBehavior><NavDropdown.Item onClick={handleNavLink}>Favorites</NavDropdown.Item></Link>
+                                <Link href='/history' passHref legacyBehavior><NavDropdown.Item onClick={handleNavLink}>History</NavDropdown.Item></Link>
+                            </NavDropdown>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

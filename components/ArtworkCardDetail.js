@@ -10,7 +10,7 @@ import { useAtom } from 'jotai'
 
 export default function ArtworkCardDetail({ objectID }) {
     const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
-    const {data, error} = useSWR(URL)
+    const {data, error} = useSWR(objectID? URL : null)
 
     const [favouritesList, setFavouritesList] = useAtom(favouritesAtom) 
     const [showAdded, setShowAdded] = useState(true);
