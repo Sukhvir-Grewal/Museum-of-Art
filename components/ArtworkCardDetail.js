@@ -8,7 +8,6 @@ import { addToFavourites, removeFromFavourites } from '@/lib/userData'
 import { favouritesAtom } from '@/store'
 import { useState, useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { addToFavourites, removeFromFavourites } from '@/lib/userData'
 
 export default function ArtworkCardDetail({ objectID }) {
     const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
