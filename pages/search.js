@@ -3,13 +3,14 @@ import { useForm } from 'react-hook-form';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { searchHistoryAtom } from '@/store';
 import { useAtom } from 'jotai';
+import { addToHistory } from '@/lib/userData';
 
 const AdvancedSearch = () => {
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom)
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         let queryString = 'searchBy=true';
 
         if (data.geoLocation) {
@@ -24,7 +25,7 @@ const AdvancedSearch = () => {
         queryString += `&isHighlight=${data.isHighlight || false}`;
         queryString += `&q=${data.q}`;
 
-        setSearchHistory((history) => [...history, data.q])
+        setSearchHistory(await addToHistory(queryString)) 
 
         router.push(`/artwork?${queryString}`);
     };

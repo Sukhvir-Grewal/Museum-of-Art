@@ -9,6 +9,7 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/router';
 import { searchHistoryAtom } from '@/store';
 import { useAtom } from 'jotai';
+import { addToHistory } from '@/lib/userData';
 
 function MainNav() {
     const Router = useRouter()
@@ -16,9 +17,9 @@ function MainNav() {
     const [isExpanded, setIsExpanded] = useState(false)
     const [searchHistory, SetSearchHistory] = useAtom(searchHistoryAtom)
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        SetSearchHistory((history)=>[...history, inputValue])
+        SetSearchHistory(await addToHistory(`title=true&q=${inputValue}`)) 
         Router.push('/artwork?title=true&q=' + inputValue)
         setInputValue('')
         setIsExpanded(false)
@@ -31,6 +32,7 @@ function MainNav() {
     function toggleIsExpended(){
         setIsExpanded(!isExpanded)
     } 
+
     function handleNavLink(){
         setIsExpanded(false)
     } 

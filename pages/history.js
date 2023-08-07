@@ -6,9 +6,15 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { Row, Col } from 'react-bootstrap';
+import { favouritesAtom } from '@/store';
+import { removeFromHistory } from '@/lib/userData';
 
 function History() {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
+  const [favouritesList] = useAtom(favouritesAtom);
+
+  if(!favouritesList) return null;
+
   const router = useRouter();
 
 
@@ -29,13 +35,9 @@ function History() {
   };
 
   // Handle click on the remove button to remove history item
-  const removeHistoryClicked = (e, index) => {
+  const removeHistoryClicked = async (e, index) => {
     e.stopPropagation();
-    setSearchHistory((current) => {
-      let x = [...current];
-      x.splice(index, 1);
-      return x;
-    });
+    setSearchHistory(await removeFromHistory(searchHistory[index])) 
   };
 
   return (
