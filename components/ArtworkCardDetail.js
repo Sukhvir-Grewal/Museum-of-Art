@@ -3,17 +3,23 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Link from 'next/link'
 import Error from 'next/error'
+import { addToFavourites, removeFromFavourites } from '@/lib/userData'
 
 import { favouritesAtom } from '@/store'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAtom } from 'jotai'
+import { addToFavourites, removeFromFavourites } from '@/lib/userData'
 
 export default function ArtworkCardDetail({ objectID }) {
     const URL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
     const {data, error} = useSWR(objectID? URL : null)
 
     const [favouritesList, setFavouritesList] = useAtom(favouritesAtom) 
-    const [showAdded, setShowAdded] = useState(true);
+    const [showAdded, setShowAdded] = useState(false);
+
+    useEffect(() => {
+        setShowAdded(favouritesList?.includes(objectID));
+    }, [favouritesList]);
 
     if (error) {
         return <Error statusCode={404} />
@@ -21,15 +27,15 @@ export default function ArtworkCardDetail({ objectID }) {
     if (data) {
         var id = `/artwork/${data.objectID}`
 
-        const handleAddToFavourites = () =>{
-            setFavouritesList((List) => [...List, data.objectID])
-            setShowAdded(false)
-        }
-
-        const handleRemoveFromFavourites = () =>{
-            setFavouritesList((List) => List.filter((id) => id !== data.objectID))
-            setShowAdded(true)
-        }
+        const favouritesClicked = async () => {
+            if (showAdded) {
+                setFavouritesList(await removeFromFavourites(objectID));
+                setShowAdded(false);
+            } else {
+                setFavouritesList(await addToFavourites(objectID));
+                setShowAdded(true);
+            }
+        }; 
         return (
             <Card>
                 {/* Renders the image only if it's available */}
@@ -77,17 +83,11 @@ export default function ArtworkCardDetail({ objectID }) {
                     {/* <Link href={id} passHref><Button>{data.objectID}</Button></Link> */}
                     {/* Rendering the Favorite button based on conditions */}
                     {
-                        favouritesList  && favouritesList.includes(data.objectID)
-                        ?
-                            (<Button variant='dark' onClick={handleRemoveFromFavourites}>
-                                + Favorite (added)
-                            </Button>)
-                        :
-                            (showAdded && (
-                               <Button variant='outline-dark' onClick={handleAddToFavourites}>
-                                    + Favorites
-                               </Button> 
-                            ))
+                      <Button 
+                        variant={showAdded ? 'primary' : 'outline-primary'} 
+                        onClick={favouritesClicked}>
+                        {showAdded ? "+ Favourite (added)" : "+ Favourite"}
+                    </Button> 
                     }
                 </Card.Body>
             </Card>

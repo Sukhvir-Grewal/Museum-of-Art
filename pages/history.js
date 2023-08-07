@@ -11,6 +11,7 @@ function History() {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
   const router = useRouter();
 
+
   // Parse the search history and generate a list of parsed search queries
   let parsedHistory = [];
 

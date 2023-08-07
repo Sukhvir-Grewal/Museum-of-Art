@@ -6,6 +6,8 @@ import ArtworkCard from "@/components/ArtworkCard";
 function FavouritesPage() {
   const [favouritesList] = useAtom(favouritesAtom);
 
+  if(!favouritesList) return null
+
   return (
     <div>
       {favouritesList.length === 0 ? (
