@@ -12,11 +12,9 @@ import { removeFromHistory } from '@/lib/userData';
 function History() {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
   const [favouritesList] = useAtom(favouritesAtom);
-
-  if(!favouritesList) return null;
-
   const router = useRouter();
 
+  if(!favouritesList) return null;
 
   // Parse the search history and generate a list of parsed search queries
   let parsedHistory = [];
