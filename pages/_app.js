@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/globals.css'
+import RouteGuard from '@/components/RouteGuard'
 
 // These hooks are for the as4
 import { SWRConfig } from 'swr'
@@ -26,11 +27,12 @@ export default function App({ Component, pageProps }) {
             return res.json()
           }
       }}>
-
+        <RouteGuard>
         <Layout>
           {/* Render the actual page component here */}
           <Component {...pageProps} />
         </Layout>
+        </RouteGuard>
 
       </SWRConfig>
     </>
