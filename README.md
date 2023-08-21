@@ -8,3 +8,7 @@ still not sure its good thing or bad for my css learning journey, Let's see what
 oh yeah basic data fetching using swr. so far the good thing i have learned about the next js
 is the concept of pre-rendering which basically is the main motive for optimizing the internet searching system.
 So yeah still working and still learning 
+
+
+##Version 1.1
+All right this is seems to be the final version for this app right now this app is fully functional where a user can register and login to this website and can search museum artifacts and add them to their favorite list and they're also functionality for history I learned a lot from this assignment there were a ton of bugs and errors I have to face but at the end of the day it is finally complete this is my first completed web Project
