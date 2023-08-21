@@ -10,5 +10,5 @@ is the concept of pre-rendering which basically is the main motive for optimizin
 So yeah still working and still learning 
 
 
-##Version 1.1
+## Version 1.1
 All right this is seems to be the final version for this app right now this app is fully functional where a user can register and login to this website and can search museum artifacts and add them to their favorite list and they're also functionality for history I learned a lot from this assignment there were a ton of bugs and errors I have to face but at the end of the day it is finally complete this is my first completed web Project
